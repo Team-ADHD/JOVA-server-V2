@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 WORKDIR /app
 COPY . .
+RUN chmod +x ./gradlew
 RUN ./gradlew clean build -x test
 FROM eclipse-temurin:23-jre
 ENV TZ=Asia/Seoul
