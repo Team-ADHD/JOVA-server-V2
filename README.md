@@ -1,10 +1,6 @@
 # JOVA-server-V2
 GSM 구인구직 서비스 JOVA 입니다!
 
-# DARAM-server-V2
-
-2024 아이디어 페스티벌 AI 기숙사 입사관리 서비스 DARAM의 서버입니다.
-
 ---
 
 ### Commit Message Rule
