@@ -19,13 +19,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "email", length = 20)
+    @Column(name = "email", length = 20, nullable = false, unique = true)
     private String email;
-    @Column(name = "grade")
+    @Column(name = "grade", nullable = false)
     private Integer grade;
-    @Column(name = "class_num")
+    @Column(name = "class_num", nullable = false)
     private Integer classNum;
-    @Column(name = "generation")
+    @Column(name = "generation", nullable = false)
     private Integer generation;
     @Column(name = "profile_picture_uri", length = 100)
     private String profilePictureUri;
