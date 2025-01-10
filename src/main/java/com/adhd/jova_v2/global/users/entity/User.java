@@ -1,6 +1,7 @@
 package com.adhd.jova_v2.global.users.entity;
 
 import com.adhd.jova_v2.global.jobs.entity.Job;
+import com.adhd.jova_v2.global.security.enums.role.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +20,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "email", length = 20, nullable = false, unique = true)
+    @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
+    @Column(name = "password", length = 100, nullable = false)
+    private String password;
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
     @Column(name = "grade", nullable = false)
     private Integer grade;
     @Column(name = "class_num", nullable = false)
