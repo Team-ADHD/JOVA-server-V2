@@ -40,6 +40,10 @@ dependencies {
 	compileOnly("org.projectlombok:lombok") // Lombok compile-time annotations
 	annotationProcessor("org.projectlombok:lombok") // Annotation processor for Lombok
 
+	/** Javax Validation API */
+	implementation("jakarta.validation:jakarta.validation-api") // Validation API
+	implementation("org.hibernate.validator:hibernate-validator") // Hibernate Validator
+
 	/** Developer Tools */
 	developmentOnly("org.springframework.boot:spring-boot-devtools") // Auto-reload for development
 
