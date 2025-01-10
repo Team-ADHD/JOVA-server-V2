@@ -5,6 +5,7 @@ import com.adhd.jova_v2.global.jobs.entity.Job;
 import com.adhd.jova_v2.global.majors.entity.Major;
 import com.adhd.jova_v2.global.users.entity.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,8 +31,9 @@ public class Application {
     @JoinColumn(name = "major_id", nullable = false)
     private Major major;
     @Column(name = "content", columnDefinition = "TEXT")
+    @Size(min = 10, max = 7500, message = "Content must be between 10 and 7500 characters")
     private String content;
-    @Column(name = "status", length = 20)
+    @Column(name = "status", length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
 }
