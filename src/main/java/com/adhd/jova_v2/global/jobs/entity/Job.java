@@ -1,6 +1,7 @@
 package com.adhd.jova_v2.global.jobs.entity;
 
 import com.adhd.jova_v2.global.applications.entity.Application;
+import com.adhd.jova_v2.global.jobs.dto.JobDto;
 import com.adhd.jova_v2.global.jobs.enums.JobStatus;
 import com.adhd.jova_v2.global.majors.entity.Major;
 import com.adhd.jova_v2.global.users.entity.User;
@@ -64,12 +65,10 @@ public class Job {
 
     public void addRequiredMajor(Major major) {
         this.requiredMajors.add(major);
-        major.addJob(this);
     }
 
     public void removeRequiredMajor(Major major) {
         this.requiredMajors.remove(major);
-        major.removeJob(this);
     }
 
     @PrePersist
@@ -81,5 +80,17 @@ public class Job {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public JobDto toDto() {
+        return JobDto.builder()
+                .id(this.id)
+                .title(this.title)
+                .description(this.description)
+                .closingDate(this.closingDate)
+                .status(this.status)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }

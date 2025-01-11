@@ -1,5 +1,6 @@
 package com.adhd.jova_v2.global.applications.entity;
 
+import com.adhd.jova_v2.global.applications.dto.ApplicationDto;
 import com.adhd.jova_v2.global.applications.enums.ApplicationStatus;
 import com.adhd.jova_v2.global.jobs.entity.Job;
 import com.adhd.jova_v2.global.majors.entity.Major;
@@ -50,5 +51,18 @@ public class Application {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public ApplicationDto toDto() {
+        return ApplicationDto.builder()
+                .id(this.id)
+                .job(this.job.toDto())
+                .user(this.applicant.toDto())
+                .major(this.major.toDto())
+                .content(this.content)
+                .status(this.status)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
     }
 }

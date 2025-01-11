@@ -2,6 +2,7 @@ package com.adhd.jova_v2.global.users.entity;
 
 import com.adhd.jova_v2.global.jobs.entity.Job;
 import com.adhd.jova_v2.global.security.enums.role.UserRole;
+import com.adhd.jova_v2.global.users.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -68,5 +69,18 @@ public class User {
         }
         this.jobs.remove(job);
         job.setUser(null);
+    }
+
+    public UserDto toDto() {
+        return UserDto.builder()
+                .id(this.id)
+                .email(this.email)
+                .role(this.role)
+                .grade(this.grade)
+                .classNum(this.classNum)
+                .generation(this.generation)
+                .profilePictureUri(this.profilePictureUri)
+                .banned(this.banned)
+                .build();
     }
 }
