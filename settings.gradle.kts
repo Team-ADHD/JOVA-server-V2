@@ -1,1 +1,1 @@
-rootProject.name = "jova-v2"
+rootProject.name = "JOVA-server-V2"
