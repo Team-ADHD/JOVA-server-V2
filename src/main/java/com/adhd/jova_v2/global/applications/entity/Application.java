@@ -1,5 +1,6 @@
 package com.adhd.jova_v2.global.applications.entity;
 
+import com.adhd.jova_v2.global.applications.dto.ApplicationDto;
 import com.adhd.jova_v2.global.applications.enums.ApplicationStatus;
 import com.adhd.jova_v2.global.jobs.entity.Job;
 import com.adhd.jova_v2.global.majors.entity.Major;
