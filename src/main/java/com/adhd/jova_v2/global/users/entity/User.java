@@ -55,11 +55,17 @@ public class User {
     private Boolean banned = false;
 
     public void addJob(Job job) {
+        if (job == null) {
+            throw new IllegalArgumentException("Job cannot be null");
+        }
         this.jobs.add(job);
         job.setUser(this);
     }
 
     public void removeJob(Job job) {
+        if (job == null) {
+            throw new IllegalArgumentException("Job cannot be null");
+        }
         this.jobs.remove(job);
         job.setUser(null);
     }
