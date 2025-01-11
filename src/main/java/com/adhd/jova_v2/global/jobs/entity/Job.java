@@ -48,4 +48,14 @@ public class Job {
             inverseJoinColumns = @JoinColumn(name = "major_id")
     )
     private List<Major> requiredMajors;
+
+    public void addApplication(Application application) {
+        this.applications.add(application);
+        application.setJob(this);
+    }
+
+    public void removeApplication(Application application) {
+        this.applications.remove(application);
+        application.setJob(null);
+    }
 }
