@@ -1,15 +1,16 @@
 package com.adhd.jova_v2.global.jobs.entity;
 
 import com.adhd.jova_v2.global.applications.entity.Application;
+import com.adhd.jova_v2.global.jobs.enums.JobStatus;
 import com.adhd.jova_v2.global.majors.entity.Major;
 import com.adhd.jova_v2.global.users.entity.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@BatchSize(size = 100)
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +32,13 @@ public class Job {
     @Column(name = "title", length = 100, nullable = false)
     private String title;
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
-    @Size(min = 10,max = 7500, message = "Content must be between 10 and 7500 characters")
+    @Size(min = 10, max = 7500, message = "Content must be between 10 and 7500 characters")
     private String description;
     @Column(name = "deadline", nullable = false)
-    @Future(message = "Closing date must be in the future")
     private Timestamp closingDate;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private JobStatus status;
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Application> applications;
     @ManyToMany
