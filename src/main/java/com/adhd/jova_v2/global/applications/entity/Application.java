@@ -36,4 +36,8 @@ public class Application {
     @Column(name = "status", length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
 }
