@@ -7,10 +7,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "majors")
+@Table(name = "majors", indexes = @Index(name = "major_name_index", columnList = "name"))
 @Getter
 @Builder
 @NoArgsConstructor
@@ -19,8 +20,8 @@ public class Major {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "field", length = 20, unique = true, nullable = false)
+    @Column(name = "name", length = 20, unique = true, nullable = false)
     private String name;
     @ManyToMany(mappedBy = "requiredMajors")
-    private List<Job> jobs;
+    private List<Job> jobs = new ArrayList<>();
 }
