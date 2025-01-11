@@ -3,11 +3,24 @@ spring:
     name: jova-server-v2
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${RDB_HOST:localhost}:${RDB_PORT:3306}/${RDB_NAME:jova-dev}?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://${RDB_HOST:localhost}:${RDB_PORT:3306}/${RDB_NAME:jova-dev}?useSSL=false&serverTimezone=Asia/Seoul
     username: ${RDB_USERNAME:root}
     password: ${RDB_PASSWORD:root}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 20000
   jpa:
-    generate-ddl: on
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql: TRACE
