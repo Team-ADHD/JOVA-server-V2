@@ -8,6 +8,4 @@ spring:
     password: ${RDB_PASSWORD:root}
   jpa:
     generate-ddl: on
-    hibernate:
-      ddl-auto: update
     show-sql: true
