@@ -12,7 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,19 +36,19 @@ public class Job {
     @Size(min = 10, max = 7500, message = "Content must be between 10 and 7500 characters")
     private String description;
     @Column(name = "deadline", nullable = false)
-    private Timestamp closingDate;
+    private LocalDateTime closingDate;
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private JobStatus status;
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Application> applications;
+    private List<Application> applications = new ArrayList<>();
     @ManyToMany
     @JoinTable(
             name = "job_required_majors",
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "major_id")
     )
-    private List<Major> requiredMajors;
+    private List<Major> requiredMajors = new ArrayList<>();
 
     public void addApplication(Application application) {
         this.applications.add(application);
@@ -61,10 +62,12 @@ public class Job {
 
     public void addRequiredMajor(Major major) {
         this.requiredMajors.add(major);
+        major.addJob(this);
     }
 
     public void removeRequiredMajor(Major major) {
         this.requiredMajors.remove(major);
+        major.removeJob(this);
     }
 
     public void setUser(User user) {
