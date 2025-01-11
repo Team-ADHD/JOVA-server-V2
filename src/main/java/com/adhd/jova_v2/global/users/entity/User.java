@@ -2,7 +2,11 @@ package com.adhd.jova_v2.global.users.entity;
 
 import com.adhd.jova_v2.global.jobs.entity.Job;
 import com.adhd.jova_v2.global.security.enums.role.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,17 +26,25 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "email", length = 50, nullable = false, unique = true)
+    @Email(message = "Invalid email")
     private String email;
     @Column(name = "password", length = 100, nullable = false)
+    @JsonIgnore
     private String password;
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
     @Column(name = "grade", nullable = false)
+    @Min(value = 1, message = "Grade must be between 1 and 3")
+    @Max(value = 3, message = "Grade must be between 1 and 3")
     private Integer grade;
     @Column(name = "class_num", nullable = false)
+    @Min(value = 1, message = "Class number must be between 1 and 4")
+    @Max(value = 4, message = "Class number must be between 1 and 4")
     private Integer classNum;
     @Column(name = "generation", nullable = false)
+    @Min(value = 1, message = "Generation must be between 1 and 9")
+    @Max(value = 9, message = "Generation must be between 1 and 9")
     private Integer generation;
     @Column(name = "profile_picture_uri", length = 100)
     @Pattern(regexp = "^(https?|ftp)://[^\\s/$.?#].[^\\s]*$", message = "Invalid URL")
