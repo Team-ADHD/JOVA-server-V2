@@ -53,4 +53,14 @@ public class User {
     private List<Job> jobs;
     @Column(name = "banned", nullable = false)
     private Boolean banned = false;
+
+    public void addJob(Job job) {
+        this.jobs.add(job);
+        job.setUser(this);
+    }
+
+    public void removeJob(Job job) {
+        this.jobs.remove(job);
+        job.setUser(null);
+    }
 }

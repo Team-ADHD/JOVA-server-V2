@@ -58,4 +58,16 @@ public class Job {
         this.applications.remove(application);
         application.setJob(null);
     }
+
+    public void addRequiredMajor(Major major) {
+        this.requiredMajors.add(major);
+    }
+
+    public void removeRequiredMajor(Major major) {
+        this.requiredMajors.remove(major);
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
