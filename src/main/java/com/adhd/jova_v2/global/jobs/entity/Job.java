@@ -47,6 +47,10 @@ public class Job {
             inverseJoinColumns = @JoinColumn(name = "major_id")
     )
     private List<Major> requiredMajors = new ArrayList<>();
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public void addApplication(Application application) {
         this.applications.add(application);
@@ -67,5 +71,4 @@ public class Job {
         this.requiredMajors.remove(major);
         major.removeJob(this);
     }
-
 }

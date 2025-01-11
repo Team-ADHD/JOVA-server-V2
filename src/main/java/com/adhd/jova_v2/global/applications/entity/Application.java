@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "applications")
 @Getter
@@ -34,4 +36,8 @@ public class Application {
     @Column(name = "status", length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt = LocalDateTime.now();
 }
