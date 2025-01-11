@@ -73,13 +73,13 @@ public class Job {
     }
 
     @PrePersist
-    public void onCreated() {
+    protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    public void onUpdated() {
+    protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
 }
