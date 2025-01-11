@@ -27,11 +27,9 @@ public class Major {
 
     public void addJob(Job job) {
         this.jobs.add(job);
-        job.getRequiredMajors().add(this);
     }
 
     public void removeJob(Job job) {
         this.jobs.remove(job);
-        job.getRequiredMajors().remove(this);
     }
 }
