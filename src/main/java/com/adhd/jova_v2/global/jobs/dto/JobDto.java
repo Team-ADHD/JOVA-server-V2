@@ -29,6 +29,13 @@ public class JobDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    /**
+     * Converts a Job entity to a JobDto data transfer object.
+     *
+     * @param job The Job entity to be converted
+     * @return A JobDto representation of the input Job, or null if the input is null
+     * @throws NullPointerException if the input job is null and null conversion is not handled
+     */
     public static JobDto fromEntity(Job job) {
         return JobDto.builder()
                 .id(job.getId())
@@ -48,6 +55,11 @@ public class JobDto {
                 .build();
     }
 
+    /**
+     * Converts the JobDto instance to a Job entity.
+     *
+     * @return Job entity created from the current JobDto, with null-safe user conversion
+     */
     public Job toEntity() {
         return Job.builder()
                 .id(this.id)

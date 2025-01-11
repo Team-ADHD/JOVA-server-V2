@@ -26,6 +26,13 @@ public class UserDto {
     private Boolean banned;
     private List<JobDto> jobs;
 
+    /**
+     * Converts a User entity to a UserDto data transfer object.
+     *
+     * @param user the User entity to be converted
+     * @return a UserDto instance with mapped fields from the input User entity
+     * @throws NullPointerException if the input user is null
+     */
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
                 .id(user.getId())
@@ -43,6 +50,11 @@ public class UserDto {
                 .build();
     }
 
+    /**
+     * Converts the UserDto instance to a User entity.
+     *
+     * @return a User entity with fields mapped from the current UserDto
+     */
     public User toEntity() {
         return User.builder()
                 .id(this.id)

@@ -26,6 +26,13 @@ public class ApplicationDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    /**
+     * Converts an Application entity to an ApplicationDto.
+     *
+     * @param application The Application entity to be converted
+     * @return An ApplicationDto representation of the input Application
+     * @throws NullPointerException if the input application is null
+     */
     public static ApplicationDto fromEntity(Application application) {
         return ApplicationDto.builder()
                 .id(application.getId())
@@ -39,6 +46,15 @@ public class ApplicationDto {
                 .build();
     }
 
+    /**
+     * Converts the ApplicationDto to an Application entity.
+     *
+     * @return An Application entity with fields mapped from the current ApplicationDto
+     * 
+     * This method creates a new Application entity using the builder pattern, mapping
+     * each field from the ApplicationDto. Nested DTOs (job, applicant, major) are 
+     * converted to their respective entities if they are not null.
+     */
     public Application toEntity() {
         return Application.builder()
                 .id(this.id)

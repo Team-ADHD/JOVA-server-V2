@@ -63,14 +63,33 @@ public class Job {
         application.setJob(null);
     }
 
+    /**
+     * Adds a major to the list of required majors for this job.
+     *
+     * @param major the Major to be added to the job's required majors list
+     */
     public void addRequiredMajor(Major major) {
         this.requiredMajors.add(major);
     }
 
+    /**
+     * Removes a specified major from the list of required majors for this job.
+     *
+     * @param major the Major to be removed from the required majors list
+     */
     public void removeRequiredMajor(Major major) {
         this.requiredMajors.remove(major);
     }
 
+    /**
+     * Prepares the job entity by setting creation and update timestamps before persisting to the database.
+     *
+     * This lifecycle callback method is automatically invoked by the JPA provider when a new job entity
+     * is about to be inserted into the database. It sets both the {@code createdAt} and {@code updatedAt}
+     * timestamps to the current system time.
+     *
+     * @see PrePersist
+     */
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
