@@ -52,17 +52,4 @@ public class Application {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
-    public ApplicationDto toDto() {
-        return ApplicationDto.builder()
-                .id(this.id)
-                .job(this.job.toDto())
-                .user(this.applicant.toDto())
-                .major(this.major.toDto())
-                .content(this.content)
-                .status(this.status)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
-                .build();
-    }
 }

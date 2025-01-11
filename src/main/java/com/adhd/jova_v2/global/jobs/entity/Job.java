@@ -81,16 +81,4 @@ public class Job {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
-    public JobDto toDto() {
-        return JobDto.builder()
-                .id(this.id)
-                .title(this.title)
-                .description(this.description)
-                .closingDate(this.closingDate)
-                .status(this.status)
-                .createdAt(this.createdAt)
-                .updatedAt(this.updatedAt)
-                .build();
-    }
 }
