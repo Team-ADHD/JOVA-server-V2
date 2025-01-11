@@ -48,9 +48,9 @@ public class Job {
     )
     private List<Major> requiredMajors = new ArrayList<>();
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private LocalDateTime updatedAt;
 
     public void addApplication(Application application) {
         this.applications.add(application);
@@ -70,5 +70,16 @@ public class Job {
     public void removeRequiredMajor(Major major) {
         this.requiredMajors.remove(major);
         major.removeJob(this);
+    }
+
+    @PrePersist
+    public void onCreated() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onUpdated() {
+        this.updatedAt = LocalDateTime.now();
     }
 }
