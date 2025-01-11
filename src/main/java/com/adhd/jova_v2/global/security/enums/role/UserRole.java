@@ -7,114 +7,44 @@ import java.util.Collections;
 import java.util.Set;
 
 public enum UserRole implements Authentication, GrantedAuthority {
-    ADMIN {
-        @Override
-        public Set<GrantedAuthority> getAuthorities() {
-            return Collections.singleton(this);
-        }
+    ADMIN, DEVELOPER, USER;
 
-        @Override
-        public Object getCredentials() {
-            return null;
-        }
+    private boolean authenticated = false;
 
-        @Override
-        public Object getDetails() {
-            return null;
-        }
+    @Override
+    public Set<GrantedAuthority> getAuthorities() {
+        return Collections.singleton(this);
+    }
 
-        @Override
-        public Object getPrincipal() {
-            return this;
-        }
+    @Override
+    public Object getCredentials() {
+        return null;
+    }
 
-        @Override
-        public boolean isAuthenticated() {
-            return true;
-        }
+    @Override
+    public Object getDetails() {
+        return null;
+    }
 
-        @Override
-        public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-            // Do nothing
-        }
+    @Override
+    public Object getPrincipal() {
+        return this;
+    }
 
-        @Override
-        public String getName() {
-            return "ADMIN";
-        }
-    },
-    DEVELOPER {
-        @Override
-        public Set<GrantedAuthority> getAuthorities() {
-            return Collections.singleton(this);
-        }
+    @Override
+    public String getName() {
+        return name();
+    }
 
-        @Override
-        public Object getCredentials() {
-            return null;
-        }
+    @Override
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
 
-        @Override
-        public Object getDetails() {
-            return null;
-        }
-
-        @Override
-        public Object getPrincipal() {
-            return this;
-        }
-
-        @Override
-        public boolean isAuthenticated() {
-            return true;
-        }
-
-        @Override
-        public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-            // Do nothing
-        }
-
-        @Override
-        public String getName() {
-            return "DEVELOPER";
-        }
-    },
-    USER {
-        @Override
-        public Set<GrantedAuthority> getAuthorities() {
-            return Collections.singleton(this);
-        }
-
-        @Override
-        public Object getCredentials() {
-            return null;
-        }
-
-        @Override
-        public Object getDetails() {
-            return null;
-        }
-
-        @Override
-        public Object getPrincipal() {
-            return this;
-        }
-
-        @Override
-        public boolean isAuthenticated() {
-            return true;
-        }
-
-        @Override
-        public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-            // Do nothing
-        }
-
-        @Override
-        public String getName() {
-            return "USER";
-        }
-    };
+    @Override
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated;
+    }
 
     @Override
     public String getAuthority() {
