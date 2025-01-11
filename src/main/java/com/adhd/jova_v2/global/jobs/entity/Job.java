@@ -6,10 +6,7 @@ import com.adhd.jova_v2.global.majors.entity.Major;
 import com.adhd.jova_v2.global.users.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
@@ -27,6 +24,7 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -70,7 +68,4 @@ public class Job {
         major.removeJob(this);
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

@@ -6,10 +6,7 @@ import com.adhd.jova_v2.global.majors.entity.Major;
 import com.adhd.jova_v2.global.users.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "applications")
@@ -21,6 +18,7 @@ public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
@@ -36,8 +34,4 @@ public class Application {
     @Column(name = "status", length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
-
-    public void setJob(Job job) {
-        this.job = job;
-    }
 }
