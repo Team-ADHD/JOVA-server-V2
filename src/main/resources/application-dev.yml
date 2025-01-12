@@ -24,3 +24,8 @@ spring:
     level:
       org.hibernate.SQL: DEBUG
       org.hibernate.type.descriptor.sql: TRACE
+  security:
+    jwt:
+      secret: ${JWT_SECRET:secret}
+      access-token-expiration: 3600
+      refresh-token-expiration: 604800
