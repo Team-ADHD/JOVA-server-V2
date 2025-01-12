@@ -5,17 +5,13 @@ import com.adhd.jova_v2.global.applications.enums.ApplicationStatus;
 import com.adhd.jova_v2.global.jobs.dto.JobDto;
 import com.adhd.jova_v2.global.majors.dto.MajorDto;
 import com.adhd.jova_v2.global.users.dto.UserDto;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class ApplicationDto {
     private Long id;
     private JobDto job;

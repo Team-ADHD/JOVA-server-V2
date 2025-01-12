@@ -1,15 +1,11 @@
 package com.adhd.jova_v2.global.majors.dto;
 
 import com.adhd.jova_v2.global.majors.entity.Major;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class MajorDto {
     private Long id;
     private String name;
