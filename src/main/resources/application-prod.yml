@@ -16,6 +16,6 @@ spring:
       port: ${REDIS_PORT}
   security:
     jwt:
-      secret: ${JWT_SECRET:secret}
+      secret: ${JWT_SECRET}
       access-token-expiration: 3600
       refresh-token-expiration: 604800
