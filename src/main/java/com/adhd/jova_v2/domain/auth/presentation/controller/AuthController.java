@@ -1,5 +1,6 @@
 package com.adhd.jova_v2.domain.auth.presentation.controller;
 
+import com.adhd.jova_v2.domain.auth.presentation.dto.request.SignInRequest;
 import com.adhd.jova_v2.domain.auth.presentation.dto.response.SignInResponse;
 import com.adhd.jova_v2.domain.auth.service.SignInService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class AuthController {
     private final SignInService signInService;
 
     @PostMapping("/signin")
-    public ResponseEntity<SignInResponse> signIn() {
-        return ResponseEntity.ok(signInService.execute());
+    public ResponseEntity<SignInResponse> signIn(SignInRequest request) {
+        return ResponseEntity.ok(signInService.execute(request));
     }
 }
