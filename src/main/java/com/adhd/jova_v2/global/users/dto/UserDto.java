@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,6 +17,7 @@ import java.util.List;
 @Builder
 public class UserDto {
     private Long id;
+    private UUID uuid;
     private String email;
     private String password;
     private UserRole role;
@@ -29,6 +31,7 @@ public class UserDto {
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
                 .id(user.getId())
+                .uuid(UUID.fromString(user.getUUID()))
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .role(user.getRole())
@@ -46,6 +49,7 @@ public class UserDto {
     public User toEntity() {
         return User.builder()
                 .id(this.id)
+                .UUID(this.uuid.toString())
                 .email(this.email)
                 .password(this.password)
                 .role(this.role)

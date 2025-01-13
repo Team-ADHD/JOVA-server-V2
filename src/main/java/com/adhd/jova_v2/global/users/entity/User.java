@@ -24,6 +24,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "UUID", length = 36, nullable = false, unique = true)
+    private String UUID;
     @Column(name = "email", length = 50, nullable = false, unique = true)
     @Email(message = "Invalid email")
     private String email;
