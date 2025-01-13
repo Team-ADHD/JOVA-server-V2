@@ -5,13 +5,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
-@RedisHash(value = "refresh_token", timeToLive = 2 * 24 * 60 * 60)
+@RedisHash(value = "refresh_token", timeToLive = 604800)
 public class RefreshToken {
     private String refreshToken;
-    private String expiredAt;
+    @Indexed
+    private UUID userId;
+    private LocalDateTime expiredAt;
 }
