@@ -23,25 +23,18 @@ import java.time.Duration;
 @Configuration
 public class RedisConfig {
 
-    private final String redisHost;
-    private final int redisPort;
-    private final RedisConnectionFactory redisConnectionFactory;
-
-    public RedisConfig(
-            @Value("${spring.data.redis.host}") String redisHost,
-            @Value("${spring.data.redis.port}") int redisPort, RedisConnectionFactory redisConnectionFactory
-    ) {
-        this.redisHost = redisHost;
-        this.redisPort = redisPort;
-        this.redisConnectionFactory = redisConnectionFactory;
-    }
+    @Value("${spring.data.redis.host}")
+    private String redisHost;
+    @Value("${spring.data.redis.port}")
+    private int redisPort;
+    @Value("${spring.data.redis.password}")
+    private String redisPassword;
 
     @Bean
-    public LettuceConnectionFactory redisConnectionFactory() {
+    public RedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHost, redisPort);
+        redisStandaloneConfiguration.setPassword(redisPassword);
         LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
-                .useSsl()
-                .and()
                 .commandTimeout(Duration.ofSeconds(5))
                 .shutdownTimeout(Duration.ofSeconds(2))
                 .build();
@@ -49,9 +42,9 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> authCodeRedisTemplate() {
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(genericJackson2JsonRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
@@ -60,18 +53,7 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> blackListRedisTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory());
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(genericJackson2JsonRedisSerializer());
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashValueSerializer(genericJackson2JsonRedisSerializer());
-        return redisTemplate;
-    }
-
-    @Bean
-    public RedisMessageListenerContainer redisContainer(MessageListenerAdapter listenerAdapter) {
+    public RedisMessageListenerContainer redisContainer(RedisConnectionFactory redisConnectionFactory, MessageListenerAdapter listenerAdapter) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(redisConnectionFactory);
         container.addMessageListener(listenerAdapter, new PatternTopic("__keyevent@*__:expired"));
