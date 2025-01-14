@@ -40,7 +40,7 @@ public class User {
     private Integer grade;
     @Column(name = "class_num", nullable = false)
     @Size(min = 1, max = 4, message = "Class number must be between 1 and 4")
-    private Integer classNum;
+    private Integer classNum; 
     @Column(name = "generation", nullable = false)
     @Size(min = 1, max = 9, message = "Generation must be between 1 and 9")
     private Integer generation;
