@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class RefreshTokenExpirationListener implements MessageListener {
 
+    private static final int BLACKLIST_TIMEOUT_SECONDS = 604800;
+    private static final String BLACKLIST_VALUE = "BLACKLISTED";
     private final RedisUtil redisUtil;
 
     @Override
@@ -21,7 +23,7 @@ public class RefreshTokenExpirationListener implements MessageListener {
         String expiredKey = message.toString();
         log.info("Expired Key detected: {}", expiredKey);
         if (!expiredKey.isEmpty()) {
-            redisUtil.set(expiredKey, "BLACKLISTED", 604800, TimeUnit.SECONDS, true);
+            redisUtil.set(expiredKey, BLACKLIST_VALUE, BLACKLIST_TIMEOUT_SECONDS, TimeUnit.SECONDS, true);
             log.info("Refresh token {} added to blacklist with value: {}", expiredKey, expiredKey);
         } else {
             log.warn("Failed to retrieve value for expired key: {}", expiredKey);
