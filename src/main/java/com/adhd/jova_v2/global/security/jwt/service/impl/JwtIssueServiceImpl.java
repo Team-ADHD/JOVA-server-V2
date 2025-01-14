@@ -43,6 +43,9 @@ public class JwtIssueServiceImpl implements JwtIssueService {
     public TokenDto issueAccessToken(UUID userId, UserRole role) {
         LocalDateTime expiration = LocalDateTime.now().plusSeconds(accessTokenExpiration);
         String accessToken = Jwts.builder()
+                .claim("jti", UUID.randomUUID().toString())
+                .claim("aud", "jova-server")
+                .claim("iss", "jova-client")
                 .claim("sub", userId.toString())
                 .claim("role", role)
                 .claim("iat", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
@@ -56,6 +59,8 @@ public class JwtIssueServiceImpl implements JwtIssueService {
     public TokenDto issueRefreshToken(UUID userId) {
         LocalDateTime expiration = LocalDateTime.now().plusSeconds(refreshTokenExpiration);
         String refreshToken = Jwts.builder()
+                .claim("aud", "jova-server")
+                .claim("iss", "jova-client")
                 .claim("sub", userId.toString())
                 .claim("iat", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
                 .claim("exp", Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()))
