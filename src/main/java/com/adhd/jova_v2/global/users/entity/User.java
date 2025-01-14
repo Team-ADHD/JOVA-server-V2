@@ -24,7 +24,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "UUID", length = 36, nullable = false, unique = true)
+    @Column(name = "uuid", length = 36, nullable = false, unique = true)
     private String UUID;
     @Column(name = "email", length = 50, nullable = false, unique = true)
     @Email(message = "Invalid email")
@@ -66,5 +66,10 @@ public class User {
         }
         this.jobs.remove(job);
         job.setUser(null);
+    }
+
+    @PrePersist
+    private void generateUUID() {
+        this.UUID = java.util.UUID.randomUUID().toString();
     }
 }
