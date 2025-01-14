@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -37,21 +36,19 @@ public class JwtIssueServiceImpl implements JwtIssueService {
     @PostConstruct
     public void init() {
         key = Keys.hmacShaKeyFor(secretKey.getBytes());
-        log.info("Key Initialized successfully");
+        log.info("JwtIssueService Initialized successfully");
     }
 
     @Override
     public TokenDto issueAccessToken(UUID userId, UserRole role) {
         LocalDateTime expiration = LocalDateTime.now().plusSeconds(accessTokenExpiration);
-
         String accessToken = Jwts.builder()
                 .claim("sub", userId.toString())
                 .claim("role", role)
-                .claim("iat", Date.from(Instant.now()))
+                .claim("iat", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
                 .claim("exp", Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(key)
                 .compact();
-
         return new TokenDto(accessToken, expiration);
     }
 
@@ -60,7 +57,7 @@ public class JwtIssueServiceImpl implements JwtIssueService {
         LocalDateTime expiration = LocalDateTime.now().plusSeconds(refreshTokenExpiration);
         String refreshToken = Jwts.builder()
                 .claim("sub", userId.toString())
-                .claim("iat", Date.from(Instant.now()))
+                .claim("iat", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
                 .claim("exp", Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(key)
                 .compact();
@@ -68,7 +65,6 @@ public class JwtIssueServiceImpl implements JwtIssueService {
         if (!saveRefreshToken.save(tokenDto, userId)) {
             throw new RefreshTokenSaveException("Refresh token save failed");
         }
-
         return tokenDto;
     }
 }
