@@ -47,26 +47,8 @@ public class User {
     @Column(name = "profile_picture_uri", length = 100)
     @Pattern(regexp = "^(https?|ftp)://[^\\s/$.?#].[^\\s]*$", message = "Invalid URL")
     private String profilePictureUri;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Job> jobs;
     @Column(name = "banned", nullable = false)
     private Boolean banned = false;
-
-    public void addJob(Job job) {
-        if (job == null) {
-            throw new IllegalArgumentException("Job cannot be null");
-        }
-        this.jobs.add(job);
-        job.setUser(this);
-    }
-
-    public void removeJob(Job job) {
-        if (job == null) {
-            throw new IllegalArgumentException("Job cannot be null");
-        }
-        this.jobs.remove(job);
-        job.setUser(null);
-    }
 
     @PrePersist
     private void generateUUID() {
