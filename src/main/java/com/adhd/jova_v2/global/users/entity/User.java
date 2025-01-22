@@ -1,6 +1,5 @@
 package com.adhd.jova_v2.global.users.entity;
 
-import com.adhd.jova_v2.global.jobs.entity.Job;
 import com.adhd.jova_v2.global.security.enums.role.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -11,8 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -40,7 +37,7 @@ public class User {
     private Integer grade;
     @Column(name = "class_num", nullable = false)
     @Size(min = 1, max = 4, message = "Class number must be between 1 and 4")
-    private Integer classNum; 
+    private Integer classNum;
     @Column(name = "generation", nullable = false)
     @Size(min = 1, max = 9, message = "Generation must be between 1 and 9")
     private Integer generation;
