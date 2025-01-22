@@ -48,10 +48,11 @@ public class JwtIssueServiceImpl implements JwtIssueService {
                 .claim("iss", "jova-client")
                 .claim("sub", userId.toString())
                 .claim("role", role)
-                .claim("iat", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
-                .claim("exp", Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()))
+                .claim("iat", LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toEpochSecond())
+                .claim("exp", expiration.atZone(ZoneId.of("Asia/Seoul")).toEpochSecond())
                 .signWith(key)
                 .compact();
+        log.info(Date.from(expiration.atZone(ZoneId.of("Asia/Seoul")).toInstant()).toString());
         return new TokenDto(accessToken, expiration);
     }
 
@@ -62,8 +63,8 @@ public class JwtIssueServiceImpl implements JwtIssueService {
                 .claim("aud", "jova-server")
                 .claim("iss", "jova-client")
                 .claim("sub", userId.toString())
-                .claim("iat", Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
-                .claim("exp", Date.from(expiration.atZone(ZoneId.systemDefault()).toInstant()))
+                .claim("iat", LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toEpochSecond())
+                .claim("exp", expiration.atZone(ZoneId.of("Asia/Seoul")).toEpochSecond())
                 .signWith(key)
                 .compact();
         TokenDto tokenDto = new TokenDto(refreshToken, expiration);
