@@ -9,7 +9,7 @@ public class DomainAuthorizationConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/v2/users/**", "/api/v2/auth/**").permitAll()
                 .requestMatchers("/api/v2/**").hasAnyRole("USER", "ADMIN", "DEVELOPER")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
         );
     }
 }
