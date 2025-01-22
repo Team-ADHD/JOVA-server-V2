@@ -17,14 +17,12 @@ import java.util.List;
 public class AlarmDto {
     private Long id;
     private Long userId;
-    private String alarmStatus;
     private List<AlarmContent> alarmContents;
 
     public static AlarmDto fromEntity(Alarm alarm) {
         return AlarmDto.builder()
                 .id(alarm.getId())
                 .userId(alarm.getUser().getId())
-                .alarmStatus(alarm.getAlarmStatus().name())
                 .alarmContents(alarm.getAlarmContents())
                 .build();
     }
@@ -33,7 +31,6 @@ public class AlarmDto {
         return Alarm.builder()
                 .id(this.id)
                 .user(User.builder().id(this.userId).build())
-                .alarmStatus(AlarmStatus.valueOf(this.alarmStatus))
                 .alarmContents(this.alarmContents)
                 .build();
     }

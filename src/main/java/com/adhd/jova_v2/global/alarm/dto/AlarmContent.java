@@ -1,6 +1,7 @@
 package com.adhd.jova_v2.global.alarm.dto;
 
 import com.adhd.jova_v2.global.alarm.enums.AlarmLevel;
+import com.adhd.jova_v2.global.alarm.enums.AlarmStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
@@ -22,6 +23,9 @@ public class AlarmContent {
     private String title;
     @Column(nullable = false)
     private String content;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AlarmStatus status;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AlarmLevel level;

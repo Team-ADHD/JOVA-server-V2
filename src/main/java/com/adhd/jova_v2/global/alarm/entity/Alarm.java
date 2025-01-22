@@ -1,7 +1,6 @@
 package com.adhd.jova_v2.global.alarm.entity;
 
 import com.adhd.jova_v2.global.alarm.dto.AlarmContent;
-import com.adhd.jova_v2.global.alarm.enums.AlarmStatus;
 import com.adhd.jova_v2.global.users.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,12 +20,9 @@ public class Alarm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
-    @Column(name = "alarm_status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private AlarmStatus alarmStatus;
     @ElementCollection
     @CollectionTable(name = "alarm_contents", joinColumns = @JoinColumn(name = "alarm_id"))
     private List<AlarmContent> alarmContents;
