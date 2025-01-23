@@ -14,22 +14,30 @@ public class RedisUtil {
     private final RedisTemplate<String, Object> blackListRedisTemplate;
 
     public void set(String key, Object value, int ttl, TimeUnit timeUnit, boolean isBlackList) {
+        String namespacedKey = applyNamespace(key, isBlackList);
         RedisTemplate<String, Object> template = isBlackList ? blackListRedisTemplate : authCodeRedisTemplate;
-        template.opsForValue().set(key, value, ttl, timeUnit);
+        template.opsForValue().set(namespacedKey, value, ttl, timeUnit);
     }
 
     public Object get(String key, boolean isBlackList) {
+        String namespacedKey = applyNamespace(key, isBlackList);
         RedisTemplate<String, Object> template = isBlackList ? blackListRedisTemplate : authCodeRedisTemplate;
-        return template.opsForValue().get(key);
+        return template.opsForValue().get(namespacedKey);
     }
 
     public boolean delete(String key, boolean isBlackList) {
+        String namespacedKey = applyNamespace(key, isBlackList);
         RedisTemplate<String, Object> template = isBlackList ? blackListRedisTemplate : authCodeRedisTemplate;
-        return template.delete(key);
+        return template.delete(namespacedKey);
     }
 
     public boolean hasKey(String key, boolean isBlackList) {
+        String namespacedKey = applyNamespace(key, isBlackList);
         RedisTemplate<String, Object> template = isBlackList ? blackListRedisTemplate : authCodeRedisTemplate;
-        return Boolean.TRUE.equals(template.hasKey(key));
+        return template.hasKey(namespacedKey);
+    }
+
+    private String applyNamespace(String key, boolean isBlackList) {
+        return isBlackList ? "blacklist:" + key : key;
     }
 }
