@@ -52,7 +52,6 @@ public class JwtIssueServiceImpl implements JwtIssueService {
                 .claim("exp", expiration.atZone(ZoneId.of("Asia/Seoul")).toEpochSecond())
                 .signWith(key)
                 .compact();
-        log.info(Date.from(expiration.atZone(ZoneId.of("Asia/Seoul")).toInstant()).toString());
         return new TokenDto(accessToken, expiration);
     }
 
