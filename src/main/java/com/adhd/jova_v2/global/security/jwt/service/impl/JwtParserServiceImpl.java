@@ -1,6 +1,7 @@
 package com.adhd.jova_v2.global.security.jwt.service.impl;
 
 import com.adhd.jova_v2.global.security.enums.role.UserRole;
+import com.adhd.jova_v2.global.security.jwt.component.ExistRefreshToken;
 import com.adhd.jova_v2.global.security.jwt.service.JwtParserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -13,12 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class JwtParserServiceImpl implements JwtParserService {
 
+    private final ExistRefreshToken existRefreshToken;
     @Value("${spring.security.jwt.secret}")
     private String secretKey;
     private SecretKey key;
@@ -44,8 +47,13 @@ public class JwtParserServiceImpl implements JwtParserService {
     }
 
     @Override
-    public String extractUserEmail(String token) {
-        return parserClaims(token).getSubject();
+    public boolean validateRefreshToken(String token) {
+        return existRefreshToken.isExist(token);
+    }
+
+    @Override
+    public UUID extractUuid(String token) {
+        return UUID.fromString(parserClaims(token).getSubject());
     }
 
     @Override
