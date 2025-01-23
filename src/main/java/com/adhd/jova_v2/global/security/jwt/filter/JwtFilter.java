@@ -52,10 +52,10 @@ public class JwtFilter extends OncePerRequestFilter {
             if (!jwtParserService.validateToken(token)) {
                 throw new RuntimeException("Access Token is invalid or expired");
             }
-            String userEmail = jwtParserService.extractUserEmail(token);
+            String userUuid = jwtParserService.extractUuid(token).toString();
             UserRole userRole = jwtParserService.extractUserRole(token);
             List<GrantedAuthority> authorities =  Collections.singletonList(new SimpleGrantedAuthority(userRole.name()));
-            Authentication authentication = new UsernamePasswordAuthenticationToken(userEmail, null, authorities);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(userUuid, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request, response);
         } catch (Exception e) {
