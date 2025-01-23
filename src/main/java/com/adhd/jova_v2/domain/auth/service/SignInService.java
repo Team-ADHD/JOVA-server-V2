@@ -1,8 +1,8 @@
 package com.adhd.jova_v2.domain.auth.service;
 
 import com.adhd.jova_v2.domain.auth.presentation.dto.request.SignInRequest;
-import com.adhd.jova_v2.domain.auth.presentation.dto.response.SignInResponse;
+import com.adhd.jova_v2.domain.auth.presentation.dto.response.TokenResponse;
 
 public interface SignInService {
-    SignInResponse execute(SignInRequest request);
+    TokenResponse execute(SignInRequest request);
 }

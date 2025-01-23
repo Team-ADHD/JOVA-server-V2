@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignInResponse {
+public class TokenResponse {
     private String accessToken;
     private String refreshToken;
     @Future(message = "Access token expired time must be in the future")

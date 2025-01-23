@@ -2,7 +2,7 @@ package com.adhd.jova_v2.domain.auth.service.impl;
 
 import com.adhd.jova_v2.domain.auth.exception.SignInFailedException;
 import com.adhd.jova_v2.domain.auth.presentation.dto.request.SignInRequest;
-import com.adhd.jova_v2.domain.auth.presentation.dto.response.SignInResponse;
+import com.adhd.jova_v2.domain.auth.presentation.dto.response.TokenResponse;
 import com.adhd.jova_v2.domain.auth.service.SignInService;
 import com.adhd.jova_v2.global.security.dto.TokenDto;
 import com.adhd.jova_v2.global.security.jwt.service.JwtIssueService;
@@ -24,11 +24,9 @@ public class SignInServiceImpl implements SignInService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public SignInResponse execute(SignInRequest request) {
+    public TokenResponse execute(SignInRequest request) {
         log.info("Sign in request: {}", request.getEmail());
         try {
-
-
             if (findUser.isExistUser(request.getEmail())) {
                 UserDto user = findUser.findUserByEmail(request.getEmail());
                 if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
@@ -36,7 +34,7 @@ public class SignInServiceImpl implements SignInService {
                 }
                 TokenDto accessToken = jwtIssueService.issueAccessToken(user.getUuid(), user.getRole());
                 TokenDto refreshToken = jwtIssueService.issueRefreshToken(user.getUuid());
-                return SignInResponse.builder()
+                return TokenResponse.builder()
                         .accessToken(accessToken.getToken())
                         .refreshToken(refreshToken.getToken())
                         .accessTokenExpiredAt(accessToken.getExpiredAt())
