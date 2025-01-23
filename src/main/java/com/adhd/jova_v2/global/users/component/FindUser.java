@@ -20,4 +20,10 @@ public class FindUser {
                 .map(UserDto::fromEntity)
                 .orElse(null);
     }
+
+    public UserDto findUserByUuid(String uuid) {
+        return userRepository.findByUUID(uuid)
+                .map(UserDto::fromEntity)
+                .orElse(null);
+    }
 }
