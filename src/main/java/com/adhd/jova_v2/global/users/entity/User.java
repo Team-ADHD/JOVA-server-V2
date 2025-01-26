@@ -1,6 +1,5 @@
 package com.adhd.jova_v2.global.users.entity;
 
-import com.adhd.jova_v2.global.jobs.entity.Job;
 import com.adhd.jova_v2.global.security.enums.role.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -12,8 +11,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Table(name = "users")
 @Getter
@@ -24,6 +21,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "uuid", length = 36, nullable = false, unique = true)
+    private String UUID;
     @Column(name = "email", length = 50, nullable = false, unique = true)
     @Email(message = "Invalid email")
     private String email;
@@ -45,24 +44,11 @@ public class User {
     @Column(name = "profile_picture_uri", length = 100)
     @Pattern(regexp = "^(https?|ftp)://[^\\s/$.?#].[^\\s]*$", message = "Invalid URL")
     private String profilePictureUri;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Job> jobs;
     @Column(name = "banned", nullable = false)
     private Boolean banned = false;
 
-    public void addJob(Job job) {
-        if (job == null) {
-            throw new IllegalArgumentException("Job cannot be null");
-        }
-        this.jobs.add(job);
-        job.setUser(this);
-    }
-
-    public void removeJob(Job job) {
-        if (job == null) {
-            throw new IllegalArgumentException("Job cannot be null");
-        }
-        this.jobs.remove(job);
-        job.setUser(null);
+    @PrePersist
+    private void generateUUID() {
+        this.UUID = java.util.UUID.randomUUID().toString();
     }
 }

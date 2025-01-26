@@ -19,7 +19,6 @@ configurations {
 	}
 }
 
-
 repositories {
 	mavenCentral()
 }
@@ -46,6 +45,11 @@ dependencies {
 
 	/** Developer Tools */
 	developmentOnly("org.springframework.boot:spring-boot-devtools") // Auto-reload for development
+
+	/** JSON Web Token (JWT) */
+	implementation("io.jsonwebtoken:jjwt-api:0.12.6") // JWT API
+	implementation("io.jsonwebtoken:jjwt-impl:0.12.6") // JWT implementation
+	implementation("io.jsonwebtoken:jjwt-jackson:0.12.6") // JWT Jackson support
 
 	/** Database Drivers */
 	runtimeOnly("com.mysql:mysql-connector-j") // MySQL driver
