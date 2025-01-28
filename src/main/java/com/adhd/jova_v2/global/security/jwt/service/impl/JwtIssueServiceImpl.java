@@ -59,6 +59,7 @@ public class JwtIssueServiceImpl implements JwtIssueService {
     public TokenDto issueRefreshToken(UUID userId) {
         LocalDateTime expiration = LocalDateTime.now().plusSeconds(refreshTokenExpiration);
         String refreshToken = Jwts.builder()
+                .claim("jti", UUID.randomUUID().toString())
                 .claim("aud", "jova-server")
                 .claim("iss", "jova-client")
                 .claim("sub", userId.toString())
