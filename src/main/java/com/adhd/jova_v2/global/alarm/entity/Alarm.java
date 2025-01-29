@@ -1,6 +1,5 @@
 package com.adhd.jova_v2.global.alarm.entity;
 
-import com.adhd.jova_v2.global.alarm.dto.AlarmContent;
 import com.adhd.jova_v2.global.users.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

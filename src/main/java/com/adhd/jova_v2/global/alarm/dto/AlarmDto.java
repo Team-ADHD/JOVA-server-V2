@@ -1,7 +1,7 @@
 package com.adhd.jova_v2.global.alarm.dto;
 
 import com.adhd.jova_v2.global.alarm.entity.Alarm;
-import com.adhd.jova_v2.global.alarm.enums.AlarmStatus;
+import com.adhd.jova_v2.global.alarm.entity.AlarmContent;
 import com.adhd.jova_v2.global.users.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
