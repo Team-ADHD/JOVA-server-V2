@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Builder
 public class ApplicationDto {
     private Long id;
     private JobDto job;
