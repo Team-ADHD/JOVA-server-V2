@@ -1,7 +1,7 @@
 package com.adhd.jova_v2.global.security.jwt.service.impl;
 
 import com.adhd.jova_v2.global.security.jwt.component.DeleteRefreshToken;
-import com.adhd.jova_v2.global.security.jwt.component.ExistBlasklist;
+import com.adhd.jova_v2.global.security.jwt.component.ExistBlacklist;
 import com.adhd.jova_v2.global.security.jwt.component.SaveBlacklist;
 import com.adhd.jova_v2.global.security.jwt.service.JwtBlacklistService;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +15,11 @@ public class JwtBlacklistServiceImpl implements JwtBlacklistService {
 
     private final SaveBlacklist saveBlacklist;
     private final DeleteRefreshToken deleteRefreshToken;
-    private final ExistBlasklist existBlasklist;
+    private final ExistBlacklist existBlacklist;
 
     @Override
     public boolean blacklist(String token) {
-        if (existBlasklist.isBlacklisted(token)) {
+        if (existBlacklist.isBlacklisted(token)) {
             log.warn("Token is already blacklisted.");
             return true;
         }
@@ -32,6 +32,6 @@ public class JwtBlacklistServiceImpl implements JwtBlacklistService {
 
     @Override
     public boolean isBlacklisted(String token) {
-        return existBlasklist.isBlacklisted(token);
+        return existBlacklist.isBlacklisted(token);
     }
 }
